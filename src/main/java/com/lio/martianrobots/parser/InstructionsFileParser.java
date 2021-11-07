@@ -1,5 +1,6 @@
 package com.lio.martianrobots.parser;
 
+import com.lio.martianrobots.controller.InstructionsController;
 import com.lio.martianrobots.model.*;
 
 import java.io.BufferedReader;
@@ -29,7 +30,7 @@ public class InstructionsFileParser {
 					if (gridLine) {
 						String[] grid = line.split("\\s+");
 						marsGrid = new MarsPlanet(new Position(Integer.parseInt(grid[0]), Integer.parseInt(grid[1])),
-								this.robots);
+								new InstructionsController(), this.robots);
 						gridLine = false;
 					} else {
 						String[] robotPosition = line.split("\\s+");
