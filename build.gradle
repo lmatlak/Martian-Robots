@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 8
+
+group 'com.lio.martianrobots'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.lio.martianrobots.MartianRobotsApplication'
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+}
