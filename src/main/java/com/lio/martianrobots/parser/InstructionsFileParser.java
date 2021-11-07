@@ -25,16 +25,27 @@ public class InstructionsFileParser {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(instructionsFileName)))) {
 			String line;
 			boolean gridLine = true;
+			int maxInstructionsLength = 0;
 			while ((line = br.readLine()) != null) {
 				if (!line.isEmpty()) {
 					if (gridLine) {
 						String[] grid = line.split("\\s+");
-						marsGrid = new MarsPlanet(new Position(Integer.parseInt(grid[0]), Integer.parseInt(grid[1])),
+						int x = Integer.parseInt(grid[0]);
+						int y = Integer.parseInt(grid[1]);
+						if (x > 50 || y > 50) {
+							throw new UnsupportedOperationException(String.format("Exceeded the maximum=50 value for any coordinate x=%d, x=%d",x ,y));
+						}
+						marsGrid = new MarsPlanet(new Position(x, y),
 								new InstructionsController(), this.robots);
 						gridLine = false;
 					} else {
 						String[] robotPosition = line.split("\\s+");
 						String robotInstructions = br.readLine();
+						maxInstructionsLength+=robotInstructions.length();
+						if (maxInstructionsLength > 100) {
+							throw new UnsupportedOperationException(String.format("Exceeded the maximum=100 value for all instruction strings," +
+									" failing fast with the currentInstructionsLength=%d", maxInstructionsLength));
+						}
 						List<Instruction> instructions = generateInstructions(robotInstructions);
 
 						Robot robot = new Robot(
