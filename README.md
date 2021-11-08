@@ -1,6 +1,6 @@
 ## Build
 ```
-cd MartianRobots
+cd Martian-Robots 
 ./gradlew clean build
 ```
 ## Run
